@@ -7,8 +7,9 @@
 
 - [Overview](#overview)
 - [Requirements](#requirements)
-- [License](#license)
 - [Mockups](#mockups)
+- [License](#license)
+
 ## Overview
  
 Documents OCR (Optical Character Recognition) allows you to to scan documents via smartphone's camera and  convert it into pdf or text file format. You can later add it to your google drive.  
@@ -19,7 +20,10 @@ App will be written in Flutter framework so you it will run either on Android or
 
 ## Milestones 
 
-TBA 
+- [ ] Take or load photos and retrieve data from them.
+- [ ] Login through Google account and connect with Firebase, where images, texts will be stored.
+- [ ] Export data to Google Drive
+- [ ] All views are working.
 
 ## Mockups 
 
@@ -29,4 +33,5 @@ Mockups for the app were done in the most professional graphical editor that eve
 
 ## License
 
-**TBA**
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
