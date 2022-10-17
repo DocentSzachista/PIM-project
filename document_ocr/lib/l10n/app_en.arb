@@ -1,6 +1,6 @@
 {
   "homePageAppBar": "Documents",
-  "homePageAppBar": {
+  "@homePageAppBar": {
     "description": "Text, which displays on "
   }
 }
