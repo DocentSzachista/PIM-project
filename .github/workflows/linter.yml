@@ -1,0 +1,33 @@
+name: Check code format dart 
+
+on:
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    default:
+    run: 
+      working-directory: .document_ocr/
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v2
+        with:
+          channel: stable
+          version: 3.0.2
+      
+      - name: Check instalation
+        run: flutter --version
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed . 
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos
+        
