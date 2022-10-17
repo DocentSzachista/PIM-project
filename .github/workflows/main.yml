@@ -26,6 +26,7 @@ jobs:
 
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter
+
         with:
           channel: stable
           version: 3.0.2
