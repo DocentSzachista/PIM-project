@@ -1,13 +1,10 @@
-import 'package:document_ocr/pages/logged_in.dart';
 import 'package:document_ocr/pages/login_page.dart';
 import 'package:document_ocr/provider/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,40 +32,9 @@ class MyApp extends StatelessWidget {
             Locale('pl', ''),
           ],
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+              primarySwatch: Colors.grey //.fromRGBO(117, 117, 117, 0),
+              ),
+          home: const LoginPage(),
         ));
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasData) {
-          return LoggedIn();
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text("Something went wrong, try again"),
-          );
-        } else {
-          return LoginPage();
-        }
-      },
-    );
   }
 }

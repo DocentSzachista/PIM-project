@@ -1,3 +1,6 @@
 {
-  "homePageAppBar": "Dokumenty"
+  "homePageAppBar": "Dokumenty",
+  "welcome": "Witaj w konwerterze plików",
+  "logInText": "Zaloguj się z Google",
+  "logOutText": "Wyloguj się"
 }

@@ -19,15 +19,13 @@ class LoggedIn extends StatelessWidget {
                   provider.logout();
                 },
                 child: Text(
-                  "Log out",
-                  style: TextStyle(color: Colors.black),
+                  AppLocalizations.of(context)!.logOutText,
+                  style: Theme.of(context).textTheme.button,
                 ))
           ],
         ),
-        body: Container(
-          child: Center(
-            child: const Text("You made it :D"),
-          ),
+        body: const Center(
+          child: Text("You made it :D"),
         ));
   }
 }
