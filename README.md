@@ -7,9 +7,9 @@
 
 - [Overview](#overview)
 - [Requirements](#requirements)
+- [Diagrams](#diagrams)
 - [Mockups](#mockups)
 - [License](#license)
-
 ## Overview
  
 Documents OCR (Optical Character Recognition) allows you to to scan documents via smartphone's camera and  convert it into pdf or text file format. You can later add it to your google drive.  
@@ -17,6 +17,21 @@ Documents OCR (Optical Character Recognition) allows you to to scan documents vi
 ## Requirements
 
 App will be written in Flutter framework so you it will run either on Android or IOs device 
+
+## Diagrams
+### C1 Diagram
+
+![Mockups for our beatiful app](./mockups/C1.png "C1 diagram")
+
+### C3 diagram
+![Mockups for our beatiful app](./mockups/c3.png "C3 diagram")
+
+### Diagram ERD
+
+ERD diagram is mostly to somehow visualize how our data will be structurized. There is no need to hold in db more data about user than uiid because all the auth stuff is getting cared of by Firebase.
+
+![Mockups for our beatiful app](./mockups/erd_diagram.png "C3 diagram")
+
 
 ## Milestones 
 
