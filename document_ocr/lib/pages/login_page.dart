@@ -6,22 +6,21 @@ import 'logged_in.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
-          return LoggedIn();
+          return const LoggedIn();
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text("Something went wrong, try again"),
           );
         } else {
-          return LoginWidget();
+          return const LoginWidget();
         }
       },
     );

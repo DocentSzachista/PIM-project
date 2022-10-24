@@ -1,3 +1,4 @@
+import 'package:document_ocr/db/db_handler.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,8 @@ class LoggedIn extends StatelessWidget {
   const LoggedIn({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    DbHandler()
+        .getDocument(); //.addDocument(Document( text: "LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM" ));
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.homePageAppBar),

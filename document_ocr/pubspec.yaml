@@ -37,8 +37,10 @@ dependencies:
   #Internationalization
   intl: ^0.17.0
 
-  #Google sign in
-  firebase_auth: ^1.1.4
+  #Google sign in and database with firebase
+  firebase_core: ^2.1.0
+  firebase_auth: ^4.0.2
+  cloud_firestore: ^4.0.2
   google_sign_in: ^5.0.3
 
   # Google icons
