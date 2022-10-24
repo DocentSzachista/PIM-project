@@ -42,7 +42,8 @@ dependencies:
   firebase_auth: ^4.0.2
   cloud_firestore: ^4.0.2
   google_sign_in: ^5.0.3
-
+  image_picker: ^0.8.6
+  google_mlkit_text_recognition: ^0.4.0
   # Google icons
   font_awesome_flutter: ^9.0.0
 
