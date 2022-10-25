@@ -42,10 +42,13 @@ dependencies:
   firebase_auth: ^4.0.2
   cloud_firestore: ^4.0.2
   google_sign_in: ^5.0.3
+  #Dependencies needed for retrieving image and recognize text
   image_picker: ^0.8.6
   google_mlkit_text_recognition: ^0.4.0
   # Google icons
   font_awesome_flutter: ^9.0.0
+  # Tags dependency
+  textfield_tags: ^2.0.2
 
   # Provider
   provider: ^6.0.4

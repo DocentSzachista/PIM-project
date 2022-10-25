@@ -34,29 +34,7 @@ class AddDocumentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: Center(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _imageContainer(),
-                _buttonsRow(),
-                Divider(
-                  height: 30,
-                  // color: Colors.teal,
-                  thickness: 5.0,
-                ),
-                _generatedTextArea(),
-                Divider(
-                  // color: Colors.teal.shade200,
-                  thickness: 5.0,
-                ),
-              ],
-            ),
-          )),
-      bottomNavigationBar:
-          ElevatedButton(onPressed: () {}, child: Text("Dodaj dokument")),
+      body: AddDocument()
     );
   }
 }
