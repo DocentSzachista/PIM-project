@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:document_ocr/db/db_handler.dart';
+import 'package:document_ocr/db/document.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:textfield_tags/textfield_tags.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddDocument extends StatefulWidget {
   const AddDocument({Key? key}) : super(key: key);
 
@@ -13,10 +15,11 @@ class AddDocument extends StatefulWidget {
 
 class _AddDocumentState extends State<AddDocument> {
 
-  final List<String> _tags = [];
+  final  _tags = [];
   String recognizedText = " ";
   late XFile? imageFile = null;
-
+  final controllerTextEditing = TextEditingController();
+  final controllerTagsText = TextEditingController();
   void retrieveImage (ImageSource source) async{
     // function tries to pick image from gallery and later invokes function
     // to recognize
@@ -42,6 +45,7 @@ class _AddDocumentState extends State<AddDocument> {
       for (TextLine line in block.lines) {
         recognizedText = "$recognizedText${line.text} \n";
       }
+      controllerTextEditing.text = recognizedText;
     }
     setState(() {});
   }
@@ -63,22 +67,19 @@ class _AddDocumentState extends State<AddDocument> {
       },
       child: Text(text));
 
-  Widget _buttonsRow() => Row(
+  Widget _buttonsRow(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
-      _button("Wybierz z galerii", ImageSource.gallery),
-      _button("Zrób zdjęcie", ImageSource.camera)
+      _button(AppLocalizations.of(context)!.gallery, ImageSource.gallery),
+      _button(AppLocalizations.of(context)!.takePicture, ImageSource.camera)
     ],
   );
 
 
   Widget _generatedTextArea(BuildContext context) => TextFormField(
-    initialValue:
-    "Lorem ipsum Lorem Ipsum Lorem ipsum Lorem Ipsum Lorem ipsum Lorem Ipsum "
-        "Lorem ipsum Lorem Ipsum Lorem ipsum Lorem"
-        "Ipsum Lorem ipsum Lorem Ipsum Lorem ipsum Lorem Ipsum Lorem ipsum Lorem"
-        "Ipsum Lorem ipsum Lorem Ipsum Lorem ipsum Lorem Ipsum ",
+
     maxLines: 4,
+    controller: controllerTextEditing,
     scrollController: ScrollController(),
     decoration:  InputDecoration(
       border: const OutlineInputBorder(),
@@ -86,28 +87,6 @@ class _AddDocumentState extends State<AddDocument> {
       hintStyle: Theme.of(context).textTheme.bodyMedium
     ),
   );
-
-  // Widget _tagsTextField() => TextFieldTags(
-  //     tagsStyler: TagsStyler(
-  //       tagDecoration: BoxDecoration(
-  //         color: Colors.blueGrey.shade200
-  //       ),
-  //       tagPadding: EdgeInsets.all(6),
-  //       tagCancelIcon: Icon(Icons.cancel, color: Colors.black,)
-  //     ),
-  //     textFieldStyler: TextFieldStyler(),
-  //     onTag: (tag){
-  //       _tags.add(tag);
-  //     },
-  //     onDelete: (tag){
-  //       _tags.remove(tag);
-  //     },
-  //     validator: (tag){
-  //       if(tag.length < 4)
-  //         return "Tag must be at least 4 letters long";
-  //       return null;
-  //     } ,
-  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -118,20 +97,54 @@ class _AddDocumentState extends State<AddDocument> {
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               imageFile == null ? _imageContainer() : Image.file(File(imageFile!.path), width:  300, height: 300,),
-              _buttonsRow(),
+              _buttonsRow(context),
               Divider(
                 height: 30,
-                // color: Colors.teal,
                 thickness: 5.0,
               ),
               _generatedTextArea(context),
               Divider(
-                // color: Colors.teal.shade200,
                 thickness: 5.0,
               ),
-              // _tagsTextField(),
-
-              ElevatedButton(onPressed: () {}, child: Text("Dodaj dokument")),
+              TextField(
+                controller: controllerTagsText,
+                decoration: const InputDecoration(
+                    border:  OutlineInputBorder(),
+                ),
+                onSubmitted: (text) {
+                  if(text.isNotEmpty) {
+                    setState(() {
+                      _tags.add(text);
+                      controllerTagsText.text = "";
+                    });
+                  }
+                },
+              ),
+              Wrap(
+                spacing: 10,
+                children: List.generate( _tags.length,(i) => Chip(
+                    label: Text(_tags[i]),
+                    deleteIconColor: Colors.red.shade50,
+                    onDeleted: (){
+                      setState(() {
+                        _tags.removeAt(i);
+                      });
+                    },
+                )).toList()
+              ),
+              ElevatedButton(
+                  onPressed: () async{
+                    if(imageFile != null && recognizedText.isNotEmpty ) {
+                      final db = DbHandler();
+                      String fileURL = await db.uploadFile(imageFile!);
+                      print(fileURL);
+                      Document documentToAdd = Document(name: "Debug",
+                          text: recognizedText,
+                          imageURL: fileURL);
+                      await db.addDocument(documentToAdd);
+                    }
+                  },
+                  child: Text(AppLocalizations.of(context)!.addDocument)),
 
             ],
           ),

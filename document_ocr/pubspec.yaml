@@ -40,6 +40,7 @@ dependencies:
   #Google sign in and database with firebase
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
+  firebase_storage: ^11.0.2
   cloud_firestore: ^4.0.2
   google_sign_in: ^5.0.3
   #Dependencies needed for retrieving image and recognize text

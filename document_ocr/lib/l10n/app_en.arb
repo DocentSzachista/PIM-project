@@ -5,5 +5,8 @@
   },
   "welcome": "Welcome to Document ocr",
   "logInText": "Sign in with Google",
-  "logOutText": "Logout"
+  "logOutText": "Logout",
+  "gallery": "Pick image from gallery",
+  "takePicture": "take picture",
+  "addDocument": "Add document"
 }

@@ -10,8 +10,7 @@ class LoggedIn extends StatelessWidget {
   const LoggedIn({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    DbHandler()
-        .getDocument(); //.addDocument(Document( text: "LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM" ));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.homePageAppBar),
