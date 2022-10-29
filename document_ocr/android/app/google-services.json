@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "596246941003",
-    "project_id": "document-ocr-7d0a1",
-    "storage_bucket": "document-ocr-7d0a1.appspot.com"
+    "project_number": "65035445167",
+    "project_id": "document-ocr-2ab56",
+    "storage_bucket": "document-ocr-2ab56.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:596246941003:android:1d84616e8facf9275d6cce",
+        "mobilesdk_app_id": "1:65035445167:android:b55b0d23edca115700455a",
         "android_client_info": {
           "package_name": "com.example.document_ocr"
         }
       },
       "oauth_client": [
         {
-          "client_id": "596246941003-977ca1scu77t1e36qrb2dq0gsgk50eco.apps.googleusercontent.com",
+          "client_id": "65035445167-5tcqn21br92jiracv7s1fec8hnroa8li.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.document_ocr",
@@ -22,28 +22,21 @@
           }
         },
         {
-          "client_id": "596246941003-vqvdoet1pm0outhus0lq5b44lkdso1dm.apps.googleusercontent.com",
+          "client_id": "65035445167-ihlce6756n56iq5f0nklmsj0qddvj44u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfinEB3P784bivFlrInfoCQmfPNI4fMeQ"
+          "current_key": "AIzaSyDONpm9hswmoliXJNic9Ja_EjFyodYqfWc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "596246941003-vqvdoet1pm0outhus0lq5b44lkdso1dm.apps.googleusercontent.com",
+              "client_id": "65035445167-ihlce6756n56iq5f0nklmsj0qddvj44u.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "596246941003-9i8afecl5g5n31nftjetu9862j5h85dg.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.documentOcr"
-              }
             }
           ]
         }

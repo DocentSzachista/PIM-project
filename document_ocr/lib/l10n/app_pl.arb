@@ -2,5 +2,8 @@
   "homePageAppBar": "Dokumenty",
   "welcome": "Witaj w konwerterze plików",
   "logInText": "Zaloguj się z Google",
-  "logOutText": "Wyloguj się"
+  "logOutText": "Wyloguj się",
+  "gallery": "Wybierz z gallerii",
+  "takePicture": "Zrób zdjęcie",
+  "addDocument": "Dodaj dokument"
 }
