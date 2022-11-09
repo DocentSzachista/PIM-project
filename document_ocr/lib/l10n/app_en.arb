@@ -1,12 +1,19 @@
 {
   "homePageAppBar": "Documents",
   "@homePageAppBar": {
-    "description": "Text, which displays on "
+    "description": "Text, which displays on homeAppBar"
   },
   "welcome": "Welcome to Document ocr",
   "logInText": "Sign in with Google",
   "logOutText": "Logout",
   "gallery": "Pick image from gallery",
   "takePicture": "take picture",
-  "addDocument": "Add document"
+  "addDocument": "Add document",
+
+  "uploadPageTitle": "Upload page" ,
+  "shareDocumentButton": "Share document",
+  "popUpSuccess": "Transfer completed",
+  "popUpFail": "Something went wrong",
+  "tagTitle": "Tags",
+  "textfieldTooltip": "Recognized text"
 }

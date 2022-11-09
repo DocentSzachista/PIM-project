@@ -1,3 +1,4 @@
+import 'package:document_ocr/pages/logged_in.dart';
 import 'package:document_ocr/pages/login_page.dart';
 import 'package:document_ocr/provider/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,12 @@ class MyApp extends StatelessWidget {
             Locale('en', ''),
             Locale('pl', ''),
           ],
-          theme: ThemeData(
-              primarySwatch: Colors.grey //.fromRGBO(117, 117, 117, 0),
-              ),
-          home: const LoginPage(),
+          routes: {
+            "/": (context) => const LoginPage(),
+            "/home": (context) => const LoggedIn()
+          },
+          theme: ThemeData(primarySwatch: Colors.grey),
+          initialRoute: "/",
         ));
   }
 }

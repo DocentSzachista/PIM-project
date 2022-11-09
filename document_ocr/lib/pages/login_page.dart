@@ -25,6 +25,4 @@ class LoginPage extends StatelessWidget {
       },
     );
   }
-// @override
-// State<MyHomePage> createState() => _MyHomePageState();
 }
