@@ -5,5 +5,14 @@
   "logOutText": "Wyloguj się",
   "gallery": "Wybierz z gallerii",
   "takePicture": "Zrób zdjęcie",
-  "addDocument": "Dodaj dokument"
+  "addDocument": "Dodaj dokument",
+
+  "uploadPageTitle": "Udostępnij" ,
+  "shareDocumentButton": "Udostępnij dokument.",
+  "popUpSuccess": "Transfer zakończony.",
+  "popUpFail": "Coś poszło nie tak.",
+
+  "tagTitle": "Tagi",
+  "textfieldTooltip": "Rozpoznany tekst"
+
 }

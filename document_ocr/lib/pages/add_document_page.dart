@@ -6,9 +6,6 @@ class AddDocumentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: AddDocument()
-    );
+    return Scaffold(appBar: AppBar(), body: AddDocument());
   }
 }

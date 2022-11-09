@@ -6,8 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
 class GoogleSignInProvider extends ChangeNotifier {
-  final googleSignIn = GoogleSignIn( scopes: [
+  final googleSignIn = GoogleSignIn(scopes: [
     drive.DriveApi.driveAppdataScope,
     drive.DriveApi.driveFileScope,
   ]);
@@ -49,7 +50,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       // Create data here instead of loading a file
       List<int> bytesList = await PDFHandler.generatePDF(document);
       final Stream<List<int>> mediaStream =
-      Future.value(bytesList).asStream().asBroadcastStream();
+          Future.value(bytesList).asStream().asBroadcastStream();
       var media = drive.Media(mediaStream, bytesList.length);
 
       // Set up File info
@@ -61,15 +62,14 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       // Upload
       final response =
-      await driveApi.files.create(driveFile, uploadMedia: media);
+          await driveApi.files.create(driveFile, uploadMedia: media);
       print("response: $response");
 
       // simulate a slow process
       await Future.delayed(Duration(seconds: 2));
-    }finally{
-
-    }
+    } finally {}
   }
+
   Future<drive.DriveApi?> _getDriveApi() async {
     final googleUser = await googleSignIn.signIn();
     final headers = await googleUser?.authHeaders;
@@ -113,8 +113,6 @@ class GoogleSignInProvider extends ChangeNotifier {
       return null;
     }
   }
-
-
 }
 
 class GoogleAuthClient extends http.BaseClient {

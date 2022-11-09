@@ -1,9 +1,14 @@
 class Document {
-  Document({this.id, this.uuid, required this.name, required this.text, required this.imageURL});
+  Document(
+      {this.id,
+      this.uuid,
+      required this.name,
+      required this.text,
+      required this.imageURL});
   String? id;
   String? uuid;
   String name;
-  final String text;
+  String text;
   final String imageURL;
 
   factory Document.fromJson(Map<String, dynamic> json) {
@@ -12,12 +17,10 @@ class Document {
         uuid: json['user_uuid'],
         text: json['text'],
         name: json['name'],
-        imageURL: json['image_url']
-    );
+        imageURL: json['image_url']);
   }
 
-  Map<String, dynamic> toJSON() =>
-      {
+  Map<String, dynamic> toJSON() => {
         "id": id,
         "user_uuid": uuid,
         "text": text,
