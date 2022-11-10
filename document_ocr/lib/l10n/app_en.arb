@@ -15,5 +15,15 @@
   "popUpSuccess": "Transfer completed",
   "popUpFail": "Something went wrong",
   "tagTitle": "Tags",
-  "textfieldTooltip": "Recognized text"
+  "textfieldTooltip": "Recognized text",
+
+
+  "invalidRecognized": "Please choose image with text",
+  "documentTitleLabel": "Document title",
+  "invalidTitle": "Please write title for a document",
+  "chooseImageTooltip": "Choose image",
+  "addDocumentPage": "Add document"
+
+
+
 }

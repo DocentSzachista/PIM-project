@@ -13,6 +13,14 @@
   "popUpFail": "Coś poszło nie tak.",
 
   "tagTitle": "Tagi",
-  "textfieldTooltip": "Rozpoznany tekst"
+  "textfieldTooltip": "Rozpoznany tekst",
+
+
+  "invalidRecognized": "Wybierz obrazek do pobrania tekstu",
+  "invalidTitle": "Podaj tytuł do dokumentu",
+  "documentTitleLabel": "Nazwa dokumentu",
+
+  "chooseImageTooltip": "Wybierz obrazek",
+  "addDocumentPage": "Dodaj dokument"
 
 }

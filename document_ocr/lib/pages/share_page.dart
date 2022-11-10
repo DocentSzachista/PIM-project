@@ -6,7 +6,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SharePage extends StatelessWidget {
   SharePage({Key? key}) : super(key: key);
   final Document document = Document(
-      name: "title", text: "Lorem ipsum dixum trahunt", imageURL: "Example");
+      name: "title",
+      text: "Lorem ipsum dixum trahunt",
+      imageURL: "Example",
+      tags: ["1", "2,", "3"]);
 
   @override
   Widget build(BuildContext context) {
