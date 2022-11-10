@@ -35,9 +35,9 @@ ERD diagram is mostly to somehow visualize how our data will be structurized. Th
 
 ## Milestones 
 
-- [ ] Take or load photos and retrieve data from them.
-- [ ] Login through Google account and connect with Firebase, where images, texts will be stored.
-- [ ] Export data to Google Drive
+- [x] Take or load photos and retrieve data from them.
+- [x] Login through Google account and connect with Firebase, where images, texts will be stored.
+- [x] Export data to Google Drive
 - [ ] All views are working.
 
 ## Mockups 
