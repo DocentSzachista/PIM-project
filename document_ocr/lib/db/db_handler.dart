@@ -13,11 +13,16 @@ class DbHandler {
       ? FirebaseAuth.instance.currentUser!.uid
       : null;
 
-  Future<void> addDocument(Document document) async {
-    final doc = _db.collection("users").doc();
-    document.id = doc.id;
-    document.uuid = _userUID;
-    await doc.set(document.toJSON());
+  Future<bool> addDocument(Document document) async {
+    try {
+      final doc = _db.collection("users").doc();
+      document.id = doc.id;
+      document.uuid = _userUID;
+      await doc.set(document.toJSON());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<String> uploadFile(XFile file) async {

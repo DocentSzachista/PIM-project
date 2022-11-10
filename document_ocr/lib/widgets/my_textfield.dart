@@ -10,16 +10,19 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   @override
-  Widget build(BuildContext context) => Column(children: [
-        Text(AppLocalizations.of(context)!.textfieldTooltip),
-        TextFormField(
-          maxLines: 4,
-          controller: widget.controller,
-          scrollController: ScrollController(),
-          decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Here will appear recognized text.",
-              hintStyle: Theme.of(context).textTheme.bodyMedium),
-        )
-      ]);
+  Widget build(BuildContext context) => TextFormField(
+        maxLines: 4,
+        controller: widget.controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return AppLocalizations.of(context)!.invalidRecognized;
+          }
+          return null;
+        },
+        scrollController: ScrollController(),
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.textfieldTooltip,
+            border: const OutlineInputBorder(),
+            hintStyle: Theme.of(context).textTheme.bodyMedium),
+      );
 }

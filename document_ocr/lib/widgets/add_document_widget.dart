@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'my_textfield.dart';
 
 class AddDocument extends StatefulWidget {
@@ -22,14 +21,16 @@ class _AddDocumentState extends State<AddDocument> {
   late XFile? imageFile = null;
   final controllerTextEditing = TextEditingController();
   final controllerTagsText = TextEditingController();
+  final controllerTitle = TextEditingController();
+
+  final _key = GlobalKey<FormState>();
+
   void retrieveImage(ImageSource source) async {
     // function tries to pick image from gallery and later invokes function
-    // to recognize
     try {
       final pickedImage = await ImagePicker().pickImage(source: source);
       if (pickedImage != null) {
         imageFile = pickedImage;
-        // setState is called to rebuild widget
         setState(() {});
         getRecognisedText(pickedImage);
       }
@@ -58,6 +59,9 @@ class _AddDocumentState extends State<AddDocument> {
           height: 300,
           child: Container(
             color: Colors.grey.shade300,
+            child: Center(
+              child: Text(AppLocalizations.of(context)!.chooseImageTooltip),
+            ),
           ),
         )
       : Image.file(
@@ -93,51 +97,81 @@ class _AddDocumentState extends State<AddDocument> {
             setState(() {
               _tags.add(text);
               controllerTagsText.text = "";
-              print(_tags);
             });
           }
         },
       );
 
+  Widget _documentTitle() => TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return AppLocalizations.of(context)!.invalidTitle;
+          }
+          return null;
+        },
+        controller: controllerTitle,
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.documentTitleLabel,
+          border: const OutlineInputBorder(),
+        ),
+      );
+  SnackBar _snackBar() => const SnackBar(
+        content: Text('Done'),
+        backgroundColor: Colors.blueGrey,
+        duration: Duration(seconds: 3),
+      );
+
+  Widget _submitButton(BuildContext context) => ElevatedButton(
+      onPressed: () async {
+        if (_key.currentState!.validate() && imageFile != null) {
+          final db = DbHandler();
+          String fileURL = await db.uploadFile(imageFile!);
+          Document documentToAdd = Document(
+              name: controllerTitle.text,
+              text: recognizedText,
+              imageURL: fileURL,
+              tags: _tags);
+          bool success = await db.addDocument(documentToAdd);
+          if (success) {
+            ScaffoldMessenger.of(context).showSnackBar(_snackBar());
+          }
+        }
+      },
+      child: Text(AppLocalizations.of(context)!.addDocument));
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: SingleChildScrollView(
             child: Center(
+                child: Form(
+          key: _key,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _imageContainer(),
               _buttonsRow(context),
-              Divider(
+              const Divider(
                 height: 30,
                 thickness: 5.0,
+              ),
+              _documentTitle(),
+              const Divider(
+                height: 30,
               ),
               MyTextField(
                 controller: controllerTextEditing,
               ),
               // _generatedTextArea(context),
-              Divider(
+              const Divider(
                 thickness: 5.0,
               ),
               TagList(tags: _tags),
               _tagsTextField(context),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (imageFile != null && recognizedText.isNotEmpty) {
-                      final db = DbHandler();
-                      String fileURL = await db.uploadFile(imageFile!);
-                      Document documentToAdd = Document(
-                          name: "Debug",
-                          text: recognizedText,
-                          imageURL: fileURL);
-                      await db.addDocument(documentToAdd);
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.addDocument)),
+              _submitButton(context)
             ],
           ),
-        )));
+        ))));
   }
 }
