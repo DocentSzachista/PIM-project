@@ -35,7 +35,7 @@ class DbHandler {
     QuerySnapshot documentsSnapshot = await _db.collection("users").get();
     final documents = documentsSnapshot.docs.map((object) {
       return Document.fromJson(object.data() as Map<String, dynamic>);
-    }).toList();
+    }).where((element) => element.uuid == _userUID).toList();
     return documents;
   }
 }
