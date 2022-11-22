@@ -3,6 +3,7 @@ import 'package:document_ocr/pages/share_page.dart';
 import 'package:document_ocr/widgets/details_widget.dart';
 import 'package:flutter/material.dart';
 
+
 class DocumentPage extends StatelessWidget {
   const DocumentPage({Key? key, required this.document}) : super(key: key);
   final Document document;
@@ -16,6 +17,10 @@ class DocumentPage extends StatelessWidget {
       ),
       body: DetailsWidget(document: document),
       bottomNavigationBar: TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white70,
+            backgroundColor: Colors.grey[500]
+          ),
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => SharePage()));

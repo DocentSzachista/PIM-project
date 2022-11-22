@@ -1,3 +1,4 @@
+import 'package:document_ocr/db/db_handler.dart';
 import 'package:document_ocr/db/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,6 +12,7 @@ class DetailsWidget extends StatefulWidget {
 
 class _DetailsWidgetState extends State<DetailsWidget> {
   Image? _image;
+  final DbHandler db = DbHandler();
   final controllerTextEditing = TextEditingController();
   final controllerTagsText = TextEditingController();
 
@@ -25,11 +27,12 @@ class _DetailsWidgetState extends State<DetailsWidget> {
     controllerTagsText.text = widget.document.tags.join(";");
   }
 
-  void _updateDocument() {
+  void _updateDocument() async {
     widget.document.text = controllerTextEditing.text;
     widget.document.tags = controllerTagsText.text.split(";");
+    await db.updateDocument(widget.document);
     setState(() {});
-    //  TODO dodaj update w firebase
+
   }
 
   Widget _imageContainer() => SizedBox(

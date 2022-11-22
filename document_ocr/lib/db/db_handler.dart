@@ -25,6 +25,17 @@ class DbHandler {
     }
   }
 
+  Future<bool> updateDocument(Document document) async{
+    try{
+      final doc = _db.collection("users").doc(document.id);
+      await doc.update(document.toJSON());
+      return true;
+    } catch(e){
+      return false;
+    }
+  }
+
+
   Future<String> uploadFile(XFile file) async {
     final imagesRef = ref.child("images/${file.name}");
     await imagesRef.putFile(File(file.path));
