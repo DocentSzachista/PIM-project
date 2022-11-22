@@ -21,6 +21,10 @@
   "documentTitleLabel": "Nazwa dokumentu",
 
   "chooseImageTooltip": "Wybierz obrazek",
-  "addDocumentPage": "Dodaj dokument"
+  "addDocumentPage": "Dodaj dokument",
+  "editText": "Edytuj",
+  "editSubmit": "Zaakceptuj"
+
+
 
 }

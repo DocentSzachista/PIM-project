@@ -2,6 +2,7 @@ import 'package:document_ocr/db/document.dart';
 import 'package:document_ocr/pages/share_page.dart';
 import 'package:document_ocr/widgets/details_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class DocumentPage extends StatelessWidget {
@@ -23,9 +24,9 @@ class DocumentPage extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SharePage()));
+                context, MaterialPageRoute(builder: (context) => SharePage(document: document,)));
           },
-          child: Text("Test")),
+          child: Text(AppLocalizations.of(context)!.shareDocumentButton)),
     );
   }
 }

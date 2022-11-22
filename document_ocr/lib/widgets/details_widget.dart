@@ -15,7 +15,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   final DbHandler db = DbHandler();
   final controllerTextEditing = TextEditingController();
   final controllerTagsText = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -43,7 +42,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             child: _image),
       );
   Widget _editRow(BuildContext context, String rowText,
-          TextEditingController controller) =>
+          TextEditingController controller,
+      {bool multilineInput = false}) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -52,27 +52,30 @@ class _DetailsWidgetState extends State<DetailsWidget> {
               onPressed: () {
                 _openTagsDialog(context, rowText, controller, () {
                   _updateDocument();
-                });
+                }, multilineInput);
               },
-              child: Text("edit"),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40.0),
-                          side: BorderSide()))))
+                          side: BorderSide()))),
+              child: Text(AppLocalizations.of(context)!.editText),
+          )
         ],
       );
   Future _openTagsDialog(BuildContext context, String fieldName,
           TextEditingController controller, Function onClickAction,
-          {bool multilineInput = false}) =>
+          bool multilineInput) =>
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
-                title: Text("Edit $fieldName"),
+                title: Text("${AppLocalizations.of(context)!.editText} $fieldName"),
                 content: TextField(
                   controller: controller,
-                  decoration: InputDecoration(hintText: "Edit your tags"),
-                  maxLines: multilineInput ? 5 : 1,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                  ),
+                  maxLines: multilineInput ? (controller.text.length / 5).round() : 1,
                   onSubmitted: (text) {
                     if (text.isNotEmpty) {
                       controller.text = text;
@@ -85,7 +88,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       onPressed: () {
                         onClickAction();
                       },
-                      child: Text("Submit"))
+                      child: Text(AppLocalizations.of(context)!.editSubmit))
                 ],
               ));
 
@@ -106,7 +109,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         (index) =>
                             Chip(label: Text(widget.document.tags[index])))
                     .toList()),
-            _editRow(context, "Treść dokumentu", controllerTextEditing),
+            _editRow(context, "Treść dokumentu", controllerTextEditing, multilineInput: true),
             Text(controllerTextEditing.text)
           ],
         ))));

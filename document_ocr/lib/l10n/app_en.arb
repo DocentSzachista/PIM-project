@@ -22,8 +22,8 @@
   "documentTitleLabel": "Document title",
   "invalidTitle": "Please write title for a document",
   "chooseImageTooltip": "Choose image",
-  "addDocumentPage": "Add document"
-
-
+  "addDocumentPage": "Add document",
+  "editText": "Edit",
+  "editSubmit": "Submit"
 
 }
