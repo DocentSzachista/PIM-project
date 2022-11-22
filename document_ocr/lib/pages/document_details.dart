@@ -3,7 +3,6 @@ import 'package:document_ocr/pages/share_page.dart';
 import 'package:document_ocr/widgets/details_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class DocumentPage extends StatelessWidget {
   const DocumentPage({Key? key, required this.document}) : super(key: key);
   final Document document;
@@ -12,16 +11,16 @@ class DocumentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(document.name),
-        ),
-        body: DetailsWidget(document: document),
-        bottomNavigationBar: TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SharePage()));
-            },
-            child: Text("Test")),
-        );
+      appBar: AppBar(
+        title: Text(document.name),
+      ),
+      body: DetailsWidget(document: document),
+      bottomNavigationBar: TextButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SharePage()));
+          },
+          child: Text("Test")),
+    );
   }
 }

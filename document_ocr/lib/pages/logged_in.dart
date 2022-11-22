@@ -12,7 +12,7 @@ import '../provider/google_sign_in.dart';
 
 class LoggedIn extends StatefulWidget {
   const LoggedIn({Key? key}) : super(key: key);
-  
+
   @override
   LoggedInState createState() => LoggedInState();
 }
@@ -59,9 +59,12 @@ class LoggedInState extends State<LoggedIn> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("+", style: Theme.of(context).textTheme.headlineLarge),
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddDocumentPage()));
+        onPressed: () async {
+          await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AddDocumentPage()));
+
+          documentFuture = db.getDocument();
+          setState(() {});
         },
       ),
     );

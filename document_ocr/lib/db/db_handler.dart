@@ -33,9 +33,12 @@ class DbHandler {
 
   Future<List<Document>> getDocument() async {
     QuerySnapshot documentsSnapshot = await _db.collection("users").get();
-    final documents = documentsSnapshot.docs.map((object) {
-      return Document.fromJson(object.data() as Map<String, dynamic>);
-    }).where((element) => element.uuid == _userUID).toList();
+    final documents = documentsSnapshot.docs
+        .map((object) {
+          return Document.fromJson(object.data() as Map<String, dynamic>);
+        })
+        .where((element) => element.uuid == _userUID)
+        .toList();
     return documents;
   }
 }
