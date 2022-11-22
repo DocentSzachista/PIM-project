@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:document_ocr/db/db_handler.dart';
 import 'package:document_ocr/db/document.dart';
 import 'package:document_ocr/pages/add_document_page.dart';
-import 'package:document_ocr/pages/share_page.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:document_ocr/widgets/document_tile.dart';
-
 import '../provider/google_sign_in.dart';
 
 class LoggedIn extends StatefulWidget {

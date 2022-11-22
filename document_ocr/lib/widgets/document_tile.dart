@@ -10,8 +10,8 @@ class DocumentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
+        onTap: () async {
+          await Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => DocumentPage(document: document)));
         },
         child: Padding(
