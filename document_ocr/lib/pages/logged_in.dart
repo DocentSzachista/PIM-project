@@ -1,6 +1,7 @@
 import 'package:document_ocr/db/db_handler.dart';
 import 'package:document_ocr/db/document.dart';
 import 'package:document_ocr/pages/add_document_page.dart';
+import 'package:document_ocr/widgets/search_bar.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -21,20 +22,48 @@ class LoggedInState extends State<LoggedIn> {
   Widget build(BuildContext context) {
     Future<List<Document>> documentFuture = db.getDocument();
     return Scaffold(
+      drawer: Drawer(
+          child: ListView(
+            children:  [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.grey,
+                      Colors.black12,
+                    ],),
+                ),
+                child: Center(
+                  child: Text(
+                      "Document OCR",
+                      style: Theme.of(context).textTheme.headlineMedium
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: Text(AppLocalizations.of(context)!.logOutText,),
+                onTap: (){
+                  final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.logout();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.search),
+                title: Text(AppLocalizations.of(context)!.searchText),
+                onTap: () {
+                  showSearch(context: context, delegate: DocumentSearchDelegate(documents: documentFuture));
+                },
+              )
+            ],
+          ) ,
+      ),
+
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.homePageAppBar),
-        actions: [
-          TextButton(
-              onPressed: () {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-              },
-              child: Text(
-                AppLocalizations.of(context)!.logOutText,
-                style: Theme.of(context).textTheme.button,
-              ))
-        ],
       ),
       body: FutureBuilder(
         future: documentFuture,
