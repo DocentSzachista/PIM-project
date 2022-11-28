@@ -24,6 +24,7 @@
   "chooseImageTooltip": "Choose image",
   "addDocumentPage": "Add document",
   "editText": "Edit",
-  "editSubmit": "Submit"
+  "editSubmit": "Submit",
+  "searchText": "Search documents"
 
 }
