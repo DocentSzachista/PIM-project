@@ -9,15 +9,15 @@ class DocumentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () async {
-          await Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DocumentPage(document: document)));
-        },
-        child: Padding(
+    return Padding(
           padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
           child: Card(
-              child: Padding(
+              child: InkWell (
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DocumentPage(document: document)));
+                  },
+                  child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +25,7 @@ class DocumentTile extends StatelessWidget {
                         Text(document.name, textScaleFactor: 1.5),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List<Widget>.generate(
+                            children: document.tags.isNotEmpty ? List<Widget>.generate(
                                 document.tags.length, (index) {
                               return Card(
                                   color: Colors.greenAccent,
@@ -33,7 +33,8 @@ class DocumentTile extends StatelessWidget {
                                       padding: const EdgeInsets.all(2),
                                       child: Text(
                                           document.tags[index] as String)));
-                            }))
+                            }) : [SizedBox(height: 30,)]
+                        )
                       ]))),
         ));
   }

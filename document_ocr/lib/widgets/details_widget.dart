@@ -15,6 +15,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   final DbHandler db = DbHandler();
   final controllerTextEditing = TextEditingController();
   final controllerTagsText = TextEditingController();
+
+
   @override
   void initState() {
     super.initState();
@@ -44,8 +46,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   Widget _editRow(BuildContext context, String rowText,
           TextEditingController controller,
       {bool multilineInput = false}) =>
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10) ,
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(rowText),
           TextButton(
@@ -58,11 +62,12 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40.0),
-                          side: BorderSide()))),
+                          side: const BorderSide()))),
               child: Text(AppLocalizations.of(context)!.editText),
           )
         ],
-      );
+      ),);
+
   Future _openTagsDialog(BuildContext context, String fieldName,
           TextEditingController controller, Function onClickAction,
           bool multilineInput) =>
@@ -99,18 +104,22 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         child: SingleChildScrollView(
             child: Center(
                 child: Column(
-          children: [
-            _imageContainer(),
-            _editRow(context, AppLocalizations.of(context)!.tagTitle,
+                  children: [
+                    _imageContainer(),
+                    _editRow(context, AppLocalizations.of(context)!.tagTitle,
                 controllerTagsText),
-            Wrap(
-                children: List.generate(
-                        widget.document.tags.length,
-                        (index) =>
-                            Chip(label: Text(widget.document.tags[index])))
-                    .toList()),
-            _editRow(context, "Treść dokumentu", controllerTextEditing, multilineInput: true),
-            Text(controllerTextEditing.text)
+                    Wrap(
+                        children: List.generate(
+                            widget.document.tags.length,
+                                (index) =>
+                                    Chip(label: Text(widget.document.tags[index])
+                                    )
+                        ).toList()
+            ),
+                    _editRow(context, "Treść dokumentu", controllerTextEditing,
+                        multilineInput: true
+                    ),
+                    Text(controllerTextEditing.text)
           ],
         ))));
   }
