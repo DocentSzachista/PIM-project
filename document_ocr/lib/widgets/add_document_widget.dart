@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'my_textfield.dart';
 
 class AddDocument extends StatefulWidget {
@@ -26,7 +27,6 @@ class _AddDocumentState extends State<AddDocument> {
   final _key = GlobalKey<FormState>();
 
   void retrieveImage(ImageSource source) async {
-    // function tries to pick image from gallery and later invokes function
     try {
       final pickedImage = await ImagePicker().pickImage(source: source);
       if (pickedImage != null) {
@@ -55,8 +55,8 @@ class _AddDocumentState extends State<AddDocument> {
 
   Widget _imageContainer() => imageFile == null
       ? SizedBox(
-          width: 300,
-          height: 300,
+          width: 250,
+          height: 250,
           child: Container(
             color: Colors.grey.shade300,
             child: Center(
@@ -66,21 +66,29 @@ class _AddDocumentState extends State<AddDocument> {
         )
       : Image.file(
           File(imageFile!.path),
-          width: 300,
-          height: 300,
+          width: 250,
+          height: 250,
+          fit: BoxFit.cover,
         );
 
-  Widget _button(String text, ImageSource source) => TextButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(Colors.grey.shade400),
-      ),
-      onPressed: () {
-        retrieveImage(source);
-      },
-      child: Text(text));
+  Widget _button(String text, ImageSource source) => SizedBox(
+        width: 120,
+        child: TextButton(
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll<Color>(Colors.lightBlue),
+          ),
+          onPressed: () {
+            retrieveImage(source);
+          },
+          child: Text(
+            text,
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
+      );
 
   Widget _buttonsRow(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _button(AppLocalizations.of(context)!.gallery, ImageSource.gallery),
           _button(AppLocalizations.of(context)!.takePicture, ImageSource.camera)
@@ -110,68 +118,129 @@ class _AddDocumentState extends State<AddDocument> {
           return null;
         },
         controller: controllerTitle,
-        decoration: InputDecoration(
-          labelText: AppLocalizations.of(context)!.documentTitleLabel,
-          border: const OutlineInputBorder(),
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
         ),
       );
   SnackBar _snackBar() => const SnackBar(
         content: Text('Done'),
         backgroundColor: Colors.blueGrey,
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 2),
       );
 
-  Widget _submitButton(BuildContext context) => ElevatedButton(
-      onPressed: () async {
-        if (_key.currentState!.validate() && imageFile != null) {
-          final db = DbHandler();
-          String fileURL = await db.uploadFile(imageFile!);
-          Document documentToAdd = Document(
-              name: controllerTitle.text,
-              text: recognizedText,
-              imageURL: fileURL,
-              tags: _tags);
-          bool success = await db.addDocument(documentToAdd);
-          if (success) {
-            ScaffoldMessenger.of(context).showSnackBar(_snackBar());
-          }
-        }
-      },
-      child: Text(AppLocalizations.of(context)!.addDocument));
+  Widget _submitButton(BuildContext context) => SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () async {
+            if (_key.currentState!.validate() && imageFile != null) {
+              final db = DbHandler();
+              String fileURL = await db.uploadFile(imageFile!);
+              Document documentToAdd = Document(
+                  name: controllerTitle.text,
+                  text: recognizedText,
+                  imageURL: fileURL,
+                  tags: _tags);
+              bool success = await db.addDocument(documentToAdd);
+              if (success) {
+                ScaffoldMessenger.of(context).showSnackBar(_snackBar());
+              }
+            }
+          },
+          child: Text(AppLocalizations.of(context)!.addDocument),
+        ),
+      );
 
+  Widget _paddedText(
+          BuildContext context, String text, paddingLeft, paddingTop) =>
+      Padding(
+        padding: EdgeInsets.only(left: paddingLeft, top: paddingTop),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      );
+  Widget _roundedThing() => Container(
+        padding: const EdgeInsets.only(
+          top: 80,
+          left: 20,
+          right: 20,
+        ),
+        decoration: const BoxDecoration(
+          boxShadow: [BoxShadow(color: Colors.white24, spreadRadius: 5)],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(120),
+            topRight: Radius.circular(120),
+          ),
+          color: Colors.white,
+        ),
+      );
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: SingleChildScrollView(
-            child: Center(
-                child: Form(
+    return SingleChildScrollView(
+      child: Center(
+        child: Form(
           key: _key,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _imageContainer(),
-              _buttonsRow(context),
-              const Divider(
-                height: 30,
-                thickness: 5.0,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  bottom: 20,
+                ),
+                child: Column(
+                  children: [
+                    _imageContainer(),
+                    _buttonsRow(context),
+                  ],
+                ),
               ),
-              _documentTitle(),
-              const Divider(
-                height: 30,
+              _roundedThing(),
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _paddedText(
+                          context,
+                          AppLocalizations.of(context)!.documentTitleLabel,
+                          10.0,
+                          0.0),
+                      SizedBox(height: 50, child: _documentTitle()),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TagList(tags: _tags),
+                      _paddedText(context,
+                          AppLocalizations.of(context)!.tagTitle, 10.0, 10.0),
+                      SizedBox(height: 50, child: _tagsTextField(context)),
+                      _paddedText(
+                          context,
+                          AppLocalizations.of(context)!.textfieldTooltip,
+                          10.0,
+                          20.0),
+                      SizedBox(
+                        height: 100,
+                        child: MyTextField(
+                          controller: controllerTextEditing,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: _submitButton(context),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              MyTextField(
-                controller: controllerTextEditing,
-              ),
-              // _generatedTextArea(context),
-              const Divider(
-                thickness: 5.0,
-              ),
-              TagList(tags: _tags),
-              _tagsTextField(context),
-              _submitButton(context)
+              // TagList(tags: _tags),
             ],
           ),
-        ))));
+        ),
+      ),
+    );
   }
 }
+

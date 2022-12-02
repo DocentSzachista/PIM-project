@@ -11,6 +11,7 @@ class AddDocumentPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.addDocument),
         ),
+        backgroundColor: Colors.grey,
         body: const AddDocument());
   }
 }

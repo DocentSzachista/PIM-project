@@ -11,7 +11,7 @@ class MyTextField extends StatefulWidget {
 class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) => TextFormField(
-        maxLines: 4,
+        maxLines: 5,
         controller: widget.controller,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -21,7 +21,7 @@ class _MyTextFieldState extends State<MyTextField> {
         },
         scrollController: ScrollController(),
         decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.textfieldTooltip,
+            // labelText: AppLocalizations.of(context)!.textfieldTooltip,
             border: const OutlineInputBorder(),
             hintStyle: Theme.of(context).textTheme.bodyMedium),
       );
