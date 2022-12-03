@@ -7,14 +7,16 @@ import 'package:flutter/material.dart';
 class DocumentTile extends StatelessWidget {
   final Document document;
   final double _imageWidth = double.infinity;
-  final double _imageHeight = 120;
+  final double _imageHeight = 100;
   final double _sigmaX = 5.1; // from 0-10
   final double _sigmaY = 5.1; // from 0-10
   final double _opacity = 0.5;
   final double _titlePadding = 10;
   const DocumentTile({Key? key, required this.document}) : super(key: key);
 
-  Widget _getImage(String url, String title) => Stack(
+  Widget _getImage(String url, String title) =>ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: Stack(
           // fit: StackFit.passthrough,
           alignment: Alignment.center,
           children: [
@@ -37,7 +39,7 @@ class DocumentTile extends StatelessWidget {
                     sigmaY: _sigmaY,
                   ),
                   child: Container(
-                    color: Colors.white.withOpacity(_opacity),
+                    color: Colors.grey.shade600.withOpacity(_opacity),
                     child: Padding(
                         padding: EdgeInsets.only(left: _titlePadding),
                         child: Center(
@@ -50,15 +52,26 @@ class DocumentTile extends StatelessWidget {
                 ),
               ),
             )
-          ]);
+          ]));
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade400,
+                blurRadius: 3.0,
+                spreadRadius: 0.01,
+            ),
+        ],
+        ),
         child: Card(
           shape: RoundedRectangleBorder(
-            side: BorderSide(),
+            side: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(15)
           ),
           child: InkWell(
@@ -80,7 +93,7 @@ class DocumentTile extends StatelessWidget {
                               ? List<Widget>.generate(document.tags.length,
                                   (index) {
                                   return Card(
-                                      color: Color(0xfff44f03),
+                                      color: const Color(0xffff3333),
                                       child: Padding(
                                           padding: const EdgeInsets.all(2),
                                           child: Text(
@@ -95,6 +108,6 @@ class DocumentTile extends StatelessWidget {
                   ]),
             ),
           ),
-        );
+        ),);
   }
 }

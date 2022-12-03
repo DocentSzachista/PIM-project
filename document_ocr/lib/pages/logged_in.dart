@@ -28,7 +28,7 @@ class LoggedInState extends State<LoggedIn> {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.grey,
-                Colors.black12,
+                Color(0xffff823b),
               ],),
           ),
           child: Center(
@@ -39,7 +39,7 @@ class LoggedInState extends State<LoggedIn> {
           ),
         ),
         ListTile(
-          leading: const Icon(Icons.logout),
+          leading: const Icon(Icons.logout, color: Color(0xffb91000),),
           title: Text(AppLocalizations.of(context)!.logOutText,),
           onTap: (){
             final provider =
@@ -48,7 +48,7 @@ class LoggedInState extends State<LoggedIn> {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.search),
+          leading: const Icon(Icons.search, color: Color(0xffb91000),),
           title: Text(AppLocalizations.of(context)!.searchText),
           onTap: () {
             showSearch(context: context, delegate: DocumentSearchDelegate(documents: documentFuture));
