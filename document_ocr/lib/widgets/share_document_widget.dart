@@ -17,8 +17,9 @@ class _ShareDocumentWidgetState extends State<ShareDocumentWidget> {
   TextEditingController controllerTextEditing = TextEditingController();
   @override
   void initState() {
-    controllerTextEditing.text = widget.document.text;
     super.initState();
+    controllerTextEditing.text = widget.document.text;
+
   }
 
   @override

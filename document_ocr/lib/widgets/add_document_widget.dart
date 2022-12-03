@@ -177,6 +177,7 @@ class _AddDocumentState extends State<AddDocument> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      reverse: true,
       child: Center(
         child: Form(
           key: _key,

@@ -1,5 +1,4 @@
 import 'package:document_ocr/db/document.dart';
-import 'package:document_ocr/pages/share_page.dart';
 import 'package:document_ocr/widgets/details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,17 +15,10 @@ class DocumentPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(document.name),
       ),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.grey,
       body: DetailsWidget(document: document),
-      bottomNavigationBar: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white70,
-            backgroundColor: Colors.grey[500]
-          ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SharePage(document: document,)));
-          },
-          child: Text(AppLocalizations.of(context)!.shareDocumentButton)),
+      // bottomNavigationBar:
     );
   }
 }
