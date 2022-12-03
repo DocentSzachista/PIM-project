@@ -18,50 +18,52 @@ class LoggedIn extends StatefulWidget {
 class LoggedInState extends State<LoggedIn> {
   final DbHandler db = DbHandler();
 
+  Widget _drawer(BuildContext context, Future<List<Document>> documentFuture) =>Drawer(
+    child: ListView(
+      children:  [
+        DrawerHeader(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.grey,
+                Colors.black12,
+              ],),
+          ),
+          child: Center(
+            child: Text(
+                "Document OCR",
+                style: Theme.of(context).textTheme.headlineMedium
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.logout),
+          title: Text(AppLocalizations.of(context)!.logOutText,),
+          onTap: (){
+            final provider =
+            Provider.of<GoogleSignInProvider>(context, listen: false);
+            provider.logout();
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.search),
+          title: Text(AppLocalizations.of(context)!.searchText),
+          onTap: () {
+            showSearch(context: context, delegate: DocumentSearchDelegate(documents: documentFuture));
+          },
+        )
+      ],
+    ) ,
+  );
+
   @override
   Widget build(BuildContext context) {
     Future<List<Document>> documentFuture = db.getDocument();
     return Scaffold(
-      drawer: Drawer(
-          child: ListView(
-            children:  [
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.grey,
-                      Colors.black12,
-                    ],),
-                ),
-                child: Center(
-                  child: Text(
-                      "Document OCR",
-                      style: Theme.of(context).textTheme.headlineMedium
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: Text(AppLocalizations.of(context)!.logOutText,),
-                onTap: (){
-                  final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.logout();
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: Text(AppLocalizations.of(context)!.searchText),
-                onTap: () {
-                  showSearch(context: context, delegate: DocumentSearchDelegate(documents: documentFuture));
-                },
-              )
-            ],
-          ) ,
-      ),
-
+      drawer: _drawer(context, documentFuture),
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.homePageAppBar),
       ),

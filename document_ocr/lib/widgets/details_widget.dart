@@ -147,10 +147,13 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         .toList()),),
                 _editRow(context, "Treść dokumentu", controllerTextEditing,
                     multilineInput: true),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                Container(
+                  height: 120,
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child:
-                  SingleChildScrollView(child:Text(controllerTextEditing.text,),),
+                      Expanded(
+                        child: SingleChildScrollView(child:Text(controllerTextEditing.text, ),),
+                      ),
                 ),
                 Center( child:SizedBox(
                     width: 200,
